@@ -1,2 +1,2 @@
 admin,Admin User,admin
-student1,Smrit Chaulagain,student
+student1,Arpan,student
