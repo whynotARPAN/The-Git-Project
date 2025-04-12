@@ -8,7 +8,7 @@ class User:
 
 def authenticate(username, password):
     try:
-        with open("data/passwords.txt", "r") as file:
+        with open("password.txt", "r") as file:
             for line in file:
                 fields = line.strip().split(",")
                 if len(fields) != 3:
@@ -22,7 +22,7 @@ def authenticate(username, password):
 
 def get_user_details(username):
     try:
-        with open("data/users.txt", "r") as file:
+        with open("user.txt", "r") as file:
             for line in file:
                 stored_username, full_name, role = line.strip().split(",")
                 if username == stored_username:
@@ -33,12 +33,12 @@ def get_user_details(username):
 
 def add_user(username, full_name, password, role):
     try:
-        with open("data/users.txt", "r") as f:
+        with open("user.txt", "r") as f:
             if any(line.startswith(username + ",") for line in f):
                 return False
-        with open("data/users.txt", "a") as f:
+        with open("user.txt", "a") as f:
             f.write(f"{username},{full_name},{role}\n")
-        with open("data/passwords.txt", "a") as f:
+        with open("password.txt", "a") as f:
             f.write(f"{username},{password},{role}\n")
         return True
     except Exception as e:
@@ -47,7 +47,7 @@ def add_user(username, full_name, password, role):
 
 def delete_user(username):
     try:
-        for filename in ["data/users.txt", "data/passwords.txt"]:
+        for filename in ["user.txt", "password.txt"]:
             with open(filename, "r") as f:
                 lines = f.readlines()
             with open(filename, "w") as f:
@@ -61,7 +61,7 @@ def delete_user(username):
 
 def get_student_grades(username):
     try:
-        with open("data/grades.txt", "r") as f:
+        with open("grade.txt", "r") as f:
             for line in f:
                 parts = line.strip().split(",")
                 if parts[0] == username:
@@ -72,7 +72,7 @@ def get_student_grades(username):
 
 def get_student_eca(username):
     try:
-        with open("data/eca.txt", "r") as f:
+        with open("eca.txt", "r") as f:
             for line in f:
                 parts = line.strip().split(",")
                 if parts[0] == username:
@@ -84,9 +84,9 @@ def get_student_eca(username):
 def update_student_profile(username, new_full_name):
     try:
         updated = False
-        with open("data/users.txt", "r") as f:
+        with open("user.txt", "r") as f:
             lines = f.readlines()
-        with open("data/users.txt", "w") as f:
+        with open("user.txt", "w") as f:
             for line in lines:
                 u, name, role = line.strip().split(",")
                 if u == username:
